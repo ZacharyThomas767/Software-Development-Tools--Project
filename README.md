@@ -1,3 +1,5 @@
+url:https://vehicle-data-dashboard-2zn6.onrender.com
+
 Vehicle Price Analysis and Visualization Dashboard
 This project is a web-based dashboard created using Streamlit, which allows users to explore and visualize vehicle price data. The application provides interactive charts and scatter plots to compare various vehicle categories and their average prices, as well as to explore relationships between numerical features.
 
