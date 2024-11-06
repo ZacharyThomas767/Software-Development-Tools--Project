@@ -3,8 +3,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # reading data
 vehicles = pd.read_csv('cleaned_dataset.csv')
@@ -24,7 +22,7 @@ selected_column = st.selectbox("Select a column to display the histogram", optio
 if selected_column == 'is_4wd':
     # Get the count of 4WD and non-4WD vehicles
     is_4wd_counts = vehicles['is_4wd'].value_counts().reset_index()
-    is_4wd_counts.columns = ['4WD Status', 'Count']  # Rename columns for clarity
+    is_4wd_counts.columns = ['4WD Status', 'Count']
     
     # Plot a bar chart for 4WD status with bars side by side
     fig = px.bar(
@@ -36,19 +34,26 @@ if selected_column == 'is_4wd':
         color='4WD Status',
         color_discrete_sequence=['#636EFA', '#EF553B']
     )
-    
+
     # Update the layout for better visualization
     fig.update_layout(
         barmode='group',  # This groups the bars by their category
         xaxis_title='4WD Status',
         yaxis_title='Count',
-        xaxis=dict(tickmode='array', tickvals=[0, 1], ticktext=["Non-4WD", "4WD"]),  # Label 0 as Non-4WD and 1 as 4WD
-        bargap=0.05  # Adjust gap between bars
+        xaxis=dict(tickmode='array',
+                   tickvals=[0, 1], 
+                   ticktext=["Non-4WD", "4WD"]
+                   ),
+        bargap=0.05 
     )
 
 else:
     # For other columns, plot a histogram
-    fig = px.histogram(vehicles, x=selected_column, nbins=20, title=f"Histogram of {selected_column}")
+    fig = px.histogram(vehicles,
+                    x=selected_column, 
+                    nbins=20, 
+                    title=f"Histogram of {selected_column}"
+                    )
 
 # Display the plot
 st.plotly_chart(fig)
@@ -123,8 +128,8 @@ with right_column:
     st.subheader("Select Months to Display")
     month_selected = []
     for month in month_order:
-        if month in vehicles["date_posted"].dt.month_name().unique():  # Check if month is present in data
-            if st.checkbox(month, value=True):  # Default checked
+        if month in vehicles["date_posted"].dt.month_name().unique():
+            if st.checkbox(month, value=True):
                 month_selected.append(month)
 
     st.subheader("Overlay and Toggle Visibility for Categories")

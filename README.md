@@ -18,30 +18,25 @@ Clone this repository or download the project files.
 Install the necessary dependencies:
 
 Create a virtual environment (optional, but recommended):
-bash
+
 Copy code
 python -m venv .env
 Activate the virtual environment:
 On Windows:
-bash
-Copy code
+
 .\.env\Scripts\activate
 On macOS/Linux:
-bash
-Copy code
+
 source .env/bin/activate
 Install required Python packages:
 
-bash
-Copy code
+
 pip install -r requirements.txt
 Place the dataset file (vehicles_us.csv) in the project directory. The dataset should contain columns such as price, make, model, year, date_posted, etc.
 
 Usage
 Run the Streamlit app:
 
-bash
-Copy code
 streamlit run app.py
 Open the application in your browser by navigating to the URL provided in the terminal (usually http://localhost:8501).
 
