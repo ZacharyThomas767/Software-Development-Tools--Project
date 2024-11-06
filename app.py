@@ -7,11 +7,53 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # reading data
-vehicles = pd.read_csv('vehicles_us.csv')
+vehicles = pd.read_csv('cleaned_dataset.csv')
+
+
+
 
 # Setting categorical and nemarical columns
 categorical_cols = vehicles.select_dtypes(include='object').columns
 numerical_cols = vehicles.select_dtypes(include=np.number).columns
+
+
+# Create a dropdown menu for selecting a column
+selected_column = st.selectbox("Select a column to display the histogram", options=vehicles.columns)
+
+# Check if the selected column is 'is_4wd' and plot accordingly
+if selected_column == 'is_4wd':
+    # Get the count of 4WD and non-4WD vehicles
+    is_4wd_counts = vehicles['is_4wd'].value_counts().reset_index()
+    is_4wd_counts.columns = ['4WD Status', 'Count']  # Rename columns for clarity
+    
+    # Plot a bar chart for 4WD status with bars side by side
+    fig = px.bar(
+        is_4wd_counts,
+        x='4WD Status',
+        y='Count',
+        title="Distribution of 4WD Vehicles",
+        labels={'4WD Status': '4WD Status', 'Count': 'Count'},
+        color='4WD Status',
+        color_discrete_sequence=['#636EFA', '#EF553B']
+    )
+    
+    # Update the layout for better visualization
+    fig.update_layout(
+        barmode='group',  # This groups the bars by their category
+        xaxis_title='4WD Status',
+        yaxis_title='Count',
+        xaxis=dict(tickmode='array', tickvals=[0, 1], ticktext=["Non-4WD", "4WD"]),  # Label 0 as Non-4WD and 1 as 4WD
+        bargap=0.05  # Adjust gap between bars
+    )
+
+else:
+    # For other columns, plot a histogram
+    fig = px.histogram(vehicles, x=selected_column, nbins=20, title=f"Histogram of {selected_column}")
+
+# Display the plot
+st.plotly_chart(fig)
+
+
 
 #comparing 2 graphs displaying price vs columns
 
