@@ -19,7 +19,6 @@ Install the necessary dependencies:
 
 Create a virtual environment (optional, but recommended):
 
-Copy code
 python -m venv .env
 Activate the virtual environment:
 On Windows:
